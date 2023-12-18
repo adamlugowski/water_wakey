@@ -5,7 +5,7 @@ from datetime import date
 
 def main():
     while True:
-        time.sleep(60 * 0.5)
+        time.sleep(60 * 30)
         user_response = input('Drink water: ').lower()
         if user_response == 'ok':
             with sqlite3.connect('watering.db') as database:
@@ -14,7 +14,7 @@ def main():
                 today_date = date.today()
                 cursor.execute('INSERT INTO watering VALUES (null, ?, ?)', (text, today_date))
                 database.commit()
-                print('Zdrowie!')
+                print('Cheers!')
         elif user_response != 'Stop':
             print("Exiting the program.")
             break
