@@ -1,4 +1,4 @@
-# Water Wakie
+# Water Wakey
 ## Simple app to remind you of drinking water.
 
 As you launch the app you will be reminded 
