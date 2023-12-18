@@ -8,7 +8,7 @@ def main():
         time.sleep(60 * 30)
         user_response = input('Drink water: ').lower()
         if user_response == 'ok':
-            with sqlite3.connect('watering.db') as database:
+            with sqlite3.connect('hydration.db') as database:
                 cursor = database.cursor()
                 text = 'H20'
                 today_date = date.today()
