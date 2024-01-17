@@ -1,7 +1,6 @@
 import time
-import sqlite3
-from datetime import date
 from stats import stats
+from add_to_db import add
 
 
 def main():
@@ -10,31 +9,22 @@ def main():
         user_response = input('Drink water: ').lower()
         try:
             if user_response == 'ok':
-                with sqlite3.connect('hydration.db') as database:
-                    cursor = database.cursor()
-                    text = 'H20'
-                    today_date = date.today()
-                    cursor.execute('INSERT INTO hydrating VALUES (null, ?, ?)', (text, today_date))
-                    database.commit()
-                    print('Cheers!')
-                    for item in stats():
-                        # kod pokazuje tuple jednoelementową
-                        print('You drunk', item, 'times')
-            # kod zachowuje się dziwnie przy poniższym kodzie
-            elif user_response == 'stop' or 'Stop':
+                add()
+            elif user_response == 'stop':
+                for item in stats():
+                    print('You drunk', item, 'times')
                 print('Exiting the program. Bye!')
-                # kod nie pokazuje statystyk
-                print(stats())
                 break
             else:
-                raise ValueError("You should type 'ok'")
+                raise ValueError("You should type 'ok' to add or 'stop' to end app and get statistics")
         except ValueError as error:
             print(error)
+            continue
 
 
 def db_init(db_cursor):
     db_cursor.execute('''CREATE TABLE IF NOT EXISTS hydrating(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         value TEXT,
-        date DATE 
+        date DATE CURRENT_DATE 
         )''')
